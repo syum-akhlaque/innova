@@ -746,8 +746,8 @@ section.our_service.okta.section_padding {
 
 /* new codes */
 
-.scrollspy-example {
-  height: 390px;
+.scrollable-section {
+  height: 360px;
   margin-top: 0.5rem;
   overflow: auto;
 }
