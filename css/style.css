@@ -747,7 +747,7 @@ section.our_service.okta.section_padding {
 /* new codes */
 
 .scrollable-section {
-  height: 360px;
+  height: 500px;
   margin-top: 0.5rem;
   overflow: auto;
 }
@@ -783,4 +783,15 @@ section.our_service.okta.section_padding {
   color: white;
   text-decoration: none;
   background-color: transparent;
+}
+
+/* anchors */
+.simple-list-example-scrollspy {
+  a.active {
+    background-color: #fdd7d1;
+  }
+}
+
+.video_box {
+  padding-bottom: 5px;
 }

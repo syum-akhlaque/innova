@@ -165,3 +165,20 @@
 
 // // Add a scroll event listener
 // window.addEventListener("scroll", handleScroll);
+
+function getInnerHeight(elm) {
+  var computed = getComputedStyle(elm),
+    padding = parseInt(computed.paddingTop) + parseInt(computed.paddingBottom);
+
+  return elm.clientHeight - padding;
+}
+
+const scrollableSection = document.querySelector(".scrollable-section");
+
+// const sectionHeight = getInnerHeight(scrollableSection);
+console.log(scrollableSection.clientHeight);
+
+scrollableSection.onscroll = () => {
+  const scrollPos = scrollableSection.scrollTop;
+  console.log(scrollPos);
+};
