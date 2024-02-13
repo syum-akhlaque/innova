@@ -166,13 +166,7 @@
 // // Add a scroll event listener
 // window.addEventListener("scroll", handleScroll);
 
-function getInnerHeight(elm) {
-  var computed = getComputedStyle(elm),
-    padding = parseInt(computed.paddingTop) + parseInt(computed.paddingBottom);
-
-  return elm.clientHeight - padding;
-}
-
+// --------------------- new codes starts ---------------
 const scrollableSection = document.querySelector(".scrollable-section");
 const clientHeight = scrollableSection.clientHeight;
 const scrollTopValue = scrollableSection.scrollTop;
@@ -180,10 +174,6 @@ const scrollTopValue = scrollableSection.scrollTop;
 // Scroll end value (bottom of the scrollable section)
 const scrollEndValue =
   scrollableSection.scrollHeight - scrollableSection.clientHeight;
-
-// console.log("Scroll top value:", scrollTopValue);
-// console.log("Scroll end value:", scrollEndValue);
-// console.log("scroll height", scrollableSection.scrollHeight);
 
 function generateValues(a = 300) {
   const start = 0;
@@ -197,23 +187,42 @@ const middle3 = middle2 + (end - middle2) / 2;
 
 scrollableSection.onscroll = () => {
   const scrollPos = scrollableSection.scrollTop;
-  console.log({ scrollPos, start, middle1, middle2, end });
-
   if (scrollPos <= middle1) {
-    console.log("hitting 1");
     document.querySelector("#item1").classList.add("selected");
   } else document.querySelector("#item1").classList.remove("selected");
 
-  console.log(middle3);
-
   if (scrollPos > middle1 && scrollPos <= middle3) {
-    console.log("hitting 2");
     document.querySelector("#item2").classList.add("selected");
   } else document.querySelector("#item2").classList.remove("selected");
 
   if (scrollPos > middle3) {
-    console.log("hitting 3");
-
     document.querySelector("#item3").classList.add("selected");
   } else document.querySelector("#item3").classList.remove("selected");
 };
+// --------------------- new codes ends ---------------
+
+// const debounce = (fn, delay) => {
+//   let timeout;
+
+//   return function () {
+//     if (timeout) {
+//       clearTimeout(timeout);
+//     }
+//     timeout = setTimeout(() => {
+//       fn();
+//     }, delay);
+//   };
+// };
+
+// let scrollPosition = scrollableSection.scrollTop;
+// let scrollDirection;
+
+// const testConsole = () => {
+//   scrollDirection =
+//     scrollableSection.scrollTop > scrollPosition ? "down" : "up";
+//   console.log(scrollDirection);
+//   scrollPosition = scrollableSection.scrollTop;
+
+//   document.getElementById("item2").click();
+// };
+// scrollableSection.addEventListener("scroll", debounce(testConsole, 1000));
