@@ -185,20 +185,79 @@ function generateValues(a = 300) {
 const [start, middle1, middle2, end] = generateValues(scrollEndValue);
 const middle3 = middle2 + (end - middle2) / 2;
 
+let currentVideoNum = 1;
+let resetVideo = false;
+const playVideo = (num) => {
+  const video = document.querySelector(`#video${num}`);
+
+  if (num !== currentVideoNum) {
+    if (resetVideo) {
+      video.currentTime = 0;
+      video.play();
+      resetVideo = false;
+    }
+    currentVideoNum = num;
+  } else resetVideo = true;
+  console.log(resetVideo);
+};
+
 scrollableSection.onscroll = () => {
+  // checkScroll();
   const scrollPos = scrollableSection.scrollTop;
   if (scrollPos <= middle1) {
     document.querySelector("#item1").classList.add("selected");
+    playVideo(1);
   } else document.querySelector("#item1").classList.remove("selected");
 
   if (scrollPos > middle1 && scrollPos <= middle3) {
     document.querySelector("#item2").classList.add("selected");
+    playVideo(2);
   } else document.querySelector("#item2").classList.remove("selected");
 
   if (scrollPos > middle3) {
+    playVideo(3);
     document.querySelector("#item3").classList.add("selected");
   } else document.querySelector("#item3").classList.remove("selected");
 };
+
+/// ---- video player ---
+var videos = document.getElementsByTagName("video");
+
+// function checkScroll() {
+//   var fraction = 0.8; // Play when 80% of the player is visible.
+
+//   for (var i = 0; i < videos.length; i++) {
+//     var video = videos[i];
+
+//     var x = video.offsetLeft,
+//       y = video.offsetTop,
+//       w = video.offsetWidth,
+//       h = video.offsetHeight,
+//       r = x + w, //right
+//       b = y + h, //bottom
+//       visibleX,
+//       visibleY,
+//       visible;
+
+//     visibleX = Math.max(
+//       0,
+//       Math.min(w, window.scrollX + window.innerWidth - x, r - window.scrollX)
+//     );
+//     visibleY = Math.max(
+//       0,
+//       Math.min(h, window.scrollY + window.innerHeight - y, b - window.scrollY)
+//     );
+
+//     visible = (visibleX * visibleY) / (w * h);
+
+//     if (visible > fraction) {
+//       video.play();
+//     } else {
+//       video.pause();
+//     }
+//   }
+// }
+
 // --------------------- new codes ends ---------------
 
 // const debounce = (fn, delay) => {
