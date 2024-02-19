@@ -198,27 +198,26 @@ const playVideo = (num) => {
     }
     currentVideoNum = num;
   } else resetVideo = true;
-  console.log(resetVideo);
 };
 
-scrollableSection.onscroll = () => {
-  // checkScroll();
-  const scrollPos = scrollableSection.scrollTop;
-  if (scrollPos <= middle1) {
-    document.querySelector("#item1").classList.add("selected");
-    playVideo(1);
-  } else document.querySelector("#item1").classList.remove("selected");
+// scrollableSection.onscroll = () => {
+//   // checkScroll();
+//   const scrollPos = scrollableSection.scrollTop;
+//   if (scrollPos <= middle1) {
+//     document.querySelector("#item1").classList.add("selected");
+//     playVideo(1);
+//   } else document.querySelector("#item1").classList.remove("selected");
 
-  if (scrollPos > middle1 && scrollPos <= middle3) {
-    document.querySelector("#item2").classList.add("selected");
-    playVideo(2);
-  } else document.querySelector("#item2").classList.remove("selected");
+//   if (scrollPos > middle1 && scrollPos <= middle3) {
+//     document.querySelector("#item2").classList.add("selected");
+//     playVideo(2);
+//   } else document.querySelector("#item2").classList.remove("selected");
 
-  if (scrollPos > middle3) {
-    playVideo(3);
-    document.querySelector("#item3").classList.add("selected");
-  } else document.querySelector("#item3").classList.remove("selected");
-};
+//   if (scrollPos > middle3) {
+//     playVideo(3);
+//     document.querySelector("#item3").classList.add("selected");
+//   } else document.querySelector("#item3").classList.remove("selected");
+// };
 
 /// ---- video player ---
 var videos = document.getElementsByTagName("video");
@@ -285,3 +284,55 @@ var videos = document.getElementsByTagName("video");
 //   document.getElementById("item2").click();
 // };
 // scrollableSection.addEventListener("scroll", debounce(testConsole, 1000));
+
+const windowClientHeight = window.clientHeight;
+const windowScrollTopValue = window.scrollTop;
+
+// Scroll end value (bottom of the scrollable section)
+const windowScrollEndValue =
+  document.body.scrollHeight - window.scrollY - window.innerHeight;
+console.log(windowScrollEndValue);
+
+var scrollContainer = document.getElementById("ScrollContainer");
+console.log(scrollContainer);
+
+var scrollTop = scrollContainer.offsetTop;
+var scrollBottom = scrollContainer.clientHeight;
+
+console.log({ scrollTop }, { scrollBottom });
+
+function generateWindowValues(scrollTop, scrollBottom) {
+  const first = scrollTop;
+  const last = scrollBottom;
+  const mid1 = Math.floor((last - first) / 3) + first;
+  const mid2 = Math.floor((2 * (last - first)) / 3) + first;
+  return [first, mid1, mid2, last];
+}
+const [first, mid1, mid2, last] = generateWindowValues(scrollTop, scrollBottom);
+const mid3 = mid2 + (last - mid2) / 2;
+
+// console.log(
+//   "Scroll bottom value:",
+//   document.body.scrollHeight - window.scrollY - window.innerHeight
+// );
+
+// window.onscroll = () => {
+//   // checkScroll();
+//   console.log({ mid1 }, { mid2 }, { mid3 });
+//   const scrollPos = window.scrollY;
+//   console.log(scrollPos);
+//   if (scrollPos <= mid1) {
+//     document.querySelector("#item1").classList.add("selected");
+//     playVideo(1);
+//   } else document.querySelector("#item1").classList.remove("selected");
+
+//   if (scrollPos > mid1 && scrollPos <= mid3) {
+//     document.querySelector("#item2").classList.add("selected");
+//     playVideo(2);
+//   } else document.querySelector("#item2").classList.remove("selected");
+
+//   if (scrollPos > mid3) {
+//     playVideo(3);
+//     document.querySelector("#item3").classList.add("selected");
+//   } else document.querySelector("#item3").classList.remove("selected");
+// };
