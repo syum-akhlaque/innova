@@ -316,23 +316,23 @@ const mid3 = mid2 + (last - mid2) / 2;
 //   document.body.scrollHeight - window.scrollY - window.innerHeight
 // );
 
-// window.onscroll = () => {
-//   // checkScroll();
-//   console.log({ mid1 }, { mid2 }, { mid3 });
-//   const scrollPos = window.scrollY;
-//   console.log(scrollPos);
-//   if (scrollPos <= mid1) {
-//     document.querySelector("#item1").classList.add("selected");
-//     playVideo(1);
-//   } else document.querySelector("#item1").classList.remove("selected");
+window.onscroll = () => {
+  // checkScroll();
+  console.log({ mid1 }, { mid2 }, { mid3 });
+  const scrollPos = window.scrollY;
+  console.log(scrollPos);
+  if (scrollPos <= mid1) {
+    document.querySelector("#item1").classList.add("selected");
+    playVideo(1);
+  } else document.querySelector("#item1").classList.remove("selected");
 
-//   if (scrollPos > mid1 && scrollPos <= mid3) {
-//     document.querySelector("#item2").classList.add("selected");
-//     playVideo(2);
-//   } else document.querySelector("#item2").classList.remove("selected");
+  if (scrollPos > mid1 && scrollPos <= mid3) {
+    document.querySelector("#item2").classList.add("selected");
+    playVideo(2);
+  } else document.querySelector("#item2").classList.remove("selected");
 
-//   if (scrollPos > mid3) {
-//     playVideo(3);
-//     document.querySelector("#item3").classList.add("selected");
-//   } else document.querySelector("#item3").classList.remove("selected");
-// };
+  if (scrollPos > mid3) {
+    playVideo(3);
+    document.querySelector("#item3").classList.add("selected");
+  } else document.querySelector("#item3").classList.remove("selected");
+};
