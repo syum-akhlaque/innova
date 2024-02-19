@@ -166,10 +166,12 @@
 // // Add a scroll event listener
 // window.addEventListener("scroll", handleScroll);
 
-// --------------------- new codes starts ---------------
+// ---------------------------------------
+//            new code starts
+// ---------------------------------------
+
+// -------- scrollable start -------------
 const scrollableSection = document.querySelector(".scrollable-section");
-const clientHeight = scrollableSection.clientHeight;
-const scrollTopValue = scrollableSection.scrollTop;
 
 // Scroll end value (bottom of the scrollable section)
 const scrollEndValue =
@@ -189,7 +191,6 @@ let currentVideoNum = 1;
 let resetVideo = false;
 const playVideo = (num) => {
   const video = document.querySelector(`#video${num}`);
-
   if (num !== currentVideoNum) {
     if (resetVideo) {
       video.currentTime = 0;
@@ -198,11 +199,9 @@ const playVideo = (num) => {
     }
     currentVideoNum = num;
   } else resetVideo = true;
-  console.log(resetVideo);
 };
 
 scrollableSection.onscroll = () => {
-  // checkScroll();
   const scrollPos = scrollableSection.scrollTop;
   if (scrollPos <= middle1) {
     document.querySelector("#item1").classList.add("selected");
@@ -220,68 +219,38 @@ scrollableSection.onscroll = () => {
   } else document.querySelector("#item3").classList.remove("selected");
 };
 
-/// ---- video player ---
-var videos = document.getElementsByTagName("video");
+// -------- scrollable end -------------
 
-// function checkScroll() {
-//   var fraction = 0.8; // Play when 80% of the player is visible.
+/// ------ Hero section video player starts -------
+const HeroVideo = document.getElementById("HeroVideo");
+function elementIsVisible(el) {
+  let rect = el.getBoundingClientRect();
+  return (
+    rect.bottom >= 0 &&
+    rect.right >= 0 &&
+    rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.left <= (window.innerWidth || document.documentElement.clientWidth)
+  );
+}
 
-//   for (var i = 0; i < videos.length; i++) {
-//     var video = videos[i];
+let shouldResetVideo = "no";
 
-//     var x = video.offsetLeft,
-//       y = video.offsetTop,
-//       w = video.offsetWidth,
-//       h = video.offsetHeight,
-//       r = x + w, //right
-//       b = y + h, //bottom
-//       visibleX,
-//       visibleY,
-//       visible;
+window.onscroll = () => {
+  const isElementIntoView = elementIsVisible(HeroVideo);
+  // console.log(elementIsVisible(video));
+  if (isElementIntoView) {
+    if (shouldResetVideo === "yes") {
+      HeroVideo.currentTime = 0;
+      HeroVideo.play();
+      console.log("reset done");
 
-//     visibleX = Math.max(
-//       0,
-//       Math.min(w, window.scrollX + window.innerWidth - x, r - window.scrollX)
-//     );
-//     visibleY = Math.max(
-//       0,
-//       Math.min(h, window.scrollY + window.innerHeight - y, b - window.scrollY)
-//     );
-
-//     visible = (visibleX * visibleY) / (w * h);
-
-//     if (visible > fraction) {
-//       video.play();
-//     } else {
-//       video.pause();
-//     }
-//   }
-// }
-
-// --------------------- new codes ends ---------------
-
-// const debounce = (fn, delay) => {
-//   let timeout;
-
-//   return function () {
-//     if (timeout) {
-//       clearTimeout(timeout);
-//     }
-//     timeout = setTimeout(() => {
-//       fn();
-//     }, delay);
-//   };
-// };
-
-// let scrollPosition = scrollableSection.scrollTop;
-// let scrollDirection;
-
-// const testConsole = () => {
-//   scrollDirection =
-//     scrollableSection.scrollTop > scrollPosition ? "down" : "up";
-//   console.log(scrollDirection);
-//   scrollPosition = scrollableSection.scrollTop;
-
-//   document.getElementById("item2").click();
-// };
-// scrollableSection.addEventListener("scroll", debounce(testConsole, 1000));
+      console.log("now it time to set reset no");
+      shouldResetVideo = "no";
+    } else {
+      console.log("its okey now");
+    }
+  } else {
+    console.log("should reset when into view");
+    shouldResetVideo = "yes";
+  }
+};
