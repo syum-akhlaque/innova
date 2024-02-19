@@ -221,7 +221,7 @@ scrollableSection.onscroll = () => {
 
 // -------- scrollable end -------------
 
-/// ------ Hero section video player starts -------
+// ------ Hero section video player starts -------
 const HeroVideo = document.getElementById("HeroVideo");
 function elementIsVisible(el) {
   let rect = el.getBoundingClientRect();
@@ -233,24 +233,17 @@ function elementIsVisible(el) {
   );
 }
 
-let shouldResetVideo = "no";
-
+let shouldResetVideo = false;
 window.onscroll = () => {
   const isElementIntoView = elementIsVisible(HeroVideo);
-  // console.log(elementIsVisible(video));
   if (isElementIntoView) {
-    if (shouldResetVideo === "yes") {
+    if (shouldResetVideo) {
       HeroVideo.currentTime = 0;
       HeroVideo.play();
-      console.log("reset done");
-
-      console.log("now it time to set reset no");
-      shouldResetVideo = "no";
-    } else {
-      console.log("its okey now");
+      shouldResetVideo = false;
     }
   } else {
-    console.log("should reset when into view");
-    shouldResetVideo = "yes";
+    shouldResetVideo = true;
   }
 };
+// ------ Hero section video player end -------
